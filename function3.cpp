@@ -1,14 +1,12 @@
 #include <iostream>
 #include <string>
-#include <ctime>
-#include <iomanip>
 
 using namespace std;
 
 // Function 3: Compute hash value for a string using the given formula
 int hashFunction(const string& s) {
     int index = 0;
-    for (size_t i = 0; i < s.length(); ++i) {
+    for (int i = 0; i < s.length(); ++i) {
         index = (26 * index + s[i] - ' ');
     }
     return index;
@@ -57,7 +55,7 @@ int main() {
     HashTable hashTable(tableSize);
 
     // Insert words from the paragraph into the hash table
-    size_t start = 0, end;
+    int start = 0, end;
     while ((end = paragraph.find(' ', start)) != string::npos) {
         string word = paragraph.substr(start, end - start);
         hashTable.insert(word);
