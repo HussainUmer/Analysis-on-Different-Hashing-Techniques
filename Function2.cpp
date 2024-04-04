@@ -3,12 +3,11 @@
 using namespace std;
 
 // Function 2 hash function
-int hash_function_1(const string& str) {
-    int hash_value = 0;
-    for (char ch : str) {
-        hash_value += ch; // Sum the ASCII values of characters
+int hash_function_2(const string& str) {
+    if (str.empty()) {
+        return 0; // Return 0 for empty strings
     }
-    return hash_value;
+    return str.front() + str.back() + str.length();
 }
 
 class HashTable {
@@ -26,7 +25,7 @@ public:
     }
 
     int hash_function(const string& key) {
-        return hash_function_1(key) % size;
+        return hash_function_2(key) % size;
     }
 
     void insert(const string& key) {
@@ -34,12 +33,11 @@ public:
         if (hash_table[index].empty()) {
             hash_table[index] = key;
         } else {
-            // Quadratic probing
-            int i = 1;
-            while (!hash_table[(index + i*i) % size].empty()) {
-                i++;
+            // Linear probing
+            while (!hash_table[index].empty()) {
+                index = (index + 1) % size;
             }
-            hash_table[(index + i*i) % size] = key;
+            hash_table[index] = key;
         }
     }
 
@@ -57,11 +55,11 @@ public:
 };
 
 int main() {
-    // Initialize hash table with size 12
-    HashTable table(12);
+    // Initialize hash table with size 10
+    HashTable table(10);
 
     // Input paragraph
-    string paragraph = "The quick brown fox jumps over the lazy dog.";
+    string paragraph = "This is a sample paragraph for testing the hash function.";
 
     // Insert words from the paragraph into the hash table
     int start = 0;
