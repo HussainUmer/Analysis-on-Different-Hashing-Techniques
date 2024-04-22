@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
-#include <cmath> // for square function
+#include <cmath> // for round function
+#include <chrono> // for timing
 using namespace std;
+using namespace std::chrono;
 
 // Function 2 hash function
 int hash_function_2(const string& str) {
@@ -72,20 +74,33 @@ int main() {
     // Input paragraph
     string paragraph = "This is a sample paragraph for testing the hash function.";
 
+    // Start timing
+    auto start = high_resolution_clock::now();
+
     // Insert words from the paragraph into the hash table
-    int start = 0;
-    while (start < paragraph.size()) {
-        int end = paragraph.find(' ', start);
-        if (end == string::npos) {
-            end = paragraph.size();
+    int start_index = 0;
+    while (start_index < paragraph.size()) {
+        int end_index = paragraph.find(' ', start_index);
+        if (end_index == string::npos) {
+            end_index = paragraph.size();
         }
-        string word = paragraph.substr(start, end - start);
+        string word = paragraph.substr(start_index, end_index - start_index);
         table.insert(word);
-        start = end + 1;
+        start_index = end_index + 1;
     }
+
+    // Stop timing
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start);
+
+    // Round the execution time to the nearest hundred milliseconds
+    int rounded_duration = round(duration.count() / 1000.0) * 1000;
 
     // Print the populated hash table
     table.print();
+
+    // Print execution time
+    cout << "Execution time: " << rounded_duration << " milliseconds" << endl;
 
     return 0;
 }
