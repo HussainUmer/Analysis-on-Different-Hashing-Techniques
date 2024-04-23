@@ -1,0 +1,1 @@
+std::cout << "Execution time: " << std::chrono::duration_cast<std::chrono::microseconds>(duration).count() << " microsec" << std::endl;

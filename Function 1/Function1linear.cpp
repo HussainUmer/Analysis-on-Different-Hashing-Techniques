@@ -77,8 +77,7 @@ int main() {
         start = end + 1;
     }
     auto duration = std::chrono::steady_clock::now() - old;
-    std::cout << "Execution time: " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " millisec" << std::endl;
-    // Print the populated hash table
+std::cout << "Execution time: " << std::chrono::duration_cast<std::chrono::microseconds>(duration).count() << " microsec" << std::endl;    // Print the populated hash table
     // table.print();
 
     return 0;

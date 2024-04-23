@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <chrono>
+#include <cmath>
 using namespace std;
 
 // Function 1 hash function
@@ -32,14 +33,32 @@ public:
 
 
     void insertQuadraticProbing(const string& key) {
-        int index = hash_function(key); // Initial index
-        int attempt = 1;
-        while (!hash_table[index].empty()) {
-            // Quadratic probing: index = (hash_function(key) + i^2) % size
-            index = (index + attempt * attempt) % size;
-            attempt++;
+        // int index = hash_function(key); // Initial index
+        // int attempt = 1;
+        // while (!hash_table[index].empty()) {
+        //     // Quadratic probing: index = (hash_function(key) + i^2) % size
+        //     index = (index + attempt * attempt) % size;
+        //     attempt++;
+        // }
+        // hash_table[index] = key;
+        int index = hash_function(key);
+        if (hash_table[index].empty()) {
+            hash_table[index] = key;
+        } else {
+            // Quadratic probing
+            int i = 1;
+            int offset = 1;
+            int hashed_index;
+            while (true) {
+                hashed_index = (index + i * offset) % size;
+                if (hash_table[hashed_index].empty()) {
+                    hash_table[hashed_index] = key;
+                    break;
+                }
+                i++;
+                offset = pow(i, 2); // Using successive squares for quadratic probing
+            }
         }
-        hash_table[index] = key;
     }
 
     void print() {
@@ -77,7 +96,7 @@ int main() {
         start = end + 1;
     }
     auto duration = std::chrono::steady_clock::now() - old;
-    std::cout << "Execution time: " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << " millisec" << std::endl;
+    std::cout << "Execution time: " << std::chrono::duration_cast<std::chrono::microseconds>(duration).count() << " microsec" << std::endl;
     // Print the populated hash table
     // table.print();
 

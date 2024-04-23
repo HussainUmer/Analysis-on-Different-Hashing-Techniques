@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <cmath> // for round function
+#include <cmath> // for square function
 #include <chrono> // for timing
 using namespace std;
 using namespace std::chrono;
@@ -11,12 +11,6 @@ int hash_function_2(const string& str) {
         return 0; // Return 0 for empty strings
     }
     return str.front() + str.back() + str.length();
-}
-
-// Secondary hash function for double hashing
-int secondary_hash_function(const string& str) {
-    // A simple secondary hash function, you may choose another function for your specific needs
-    return str.length() % 7 + 1; // Modulo 7 plus 1 to avoid returning 0
 }
 
 class HashTable {
@@ -42,15 +36,19 @@ public:
         if (hash_table[index].empty()) {
             hash_table[index] = key;
         } else {
-            // Double hashing
-            int offset = secondary_hash_function(key);
-            int hashed_index = (index + offset) % size;
+            // Quadratic probing
             int i = 1;
-            while (!hash_table[hashed_index].empty()) {
+            int offset = 1;
+            int hashed_index;
+            while (true) {
                 hashed_index = (index + i * offset) % size;
+                if (hash_table[hashed_index].empty()) {
+                    hash_table[hashed_index] = key;
+                    break;
+                }
                 i++;
+                offset = pow(i, 2); // Using successive squares for quadratic probing
             }
-            hash_table[hashed_index] = key;
         }
     }
 
