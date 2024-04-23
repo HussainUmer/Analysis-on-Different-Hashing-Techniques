@@ -3,7 +3,7 @@
 #include <chrono>
 using namespace std;
 
-// Function 3: Compute hash value for a string using the given formula
+// Function 3: Hash Function
 int hashFunction(const string& s) {
     int index = 0;
     for (int i = 0; i < s.length(); ++i) {

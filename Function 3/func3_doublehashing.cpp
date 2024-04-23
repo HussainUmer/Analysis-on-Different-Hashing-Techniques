@@ -87,8 +87,8 @@ int main() {
     }
 
     // Output hash table
-    cout << "Hash Table:" << endl;
-    hashTable.printTable();
+    // cout << "Hash Table:" << endl;
+    // hashTable.printTable();
 
     auto duration = steady_clock::now() - old;
     cout << "Execution time: " << duration_cast<microseconds>(duration).count() << " microseconds" << endl;
