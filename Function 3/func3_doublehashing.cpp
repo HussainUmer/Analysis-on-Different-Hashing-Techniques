@@ -84,7 +84,7 @@ int main() {
     // hashTable.printTable();
 
     auto duration = chrono::steady_clock::now() - old;
-    std::cout << "Execution time: " << chrono::duration_cast<chrono::milliseconds>(duration).count() << " millisec" << endl;
+    std::cout << "Execution time: " << chrono::duration_cast<chrono::microseconds>(duration).count() << " microsec" << endl;
 
     return 0;
 }

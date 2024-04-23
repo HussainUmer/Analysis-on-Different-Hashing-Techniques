@@ -36,16 +36,6 @@ public:
         table[index] = s;
     }
 
-    // Insert a string into the hash table using quadratic probing for collisions
-    void insertQuadraticProbing(const string& s) {
-        int index = hashFunction(s) % size;
-        int i = 1;
-        while (!table[index].empty()) {
-            index = (index + i * i) % size; // Quadratic probing
-            ++i;
-        }
-        table[index] = s;
-    }
 
     // Function to print the hash table
     void printTable() {
@@ -85,7 +75,7 @@ int main() {
     // hashTable.printTable();
 
     auto duration = chrono::steady_clock::now() - old;
-    std::cout << "Execution time: " << chrono::duration_cast<chrono::milliseconds>(duration).count() << " millisec" << endl;
+    std::cout << "Execution time: " << chrono::duration_cast<chrono::microseconds>(duration).count() << " microsec" << endl;
 
     return 0;
 }

@@ -27,15 +27,6 @@ public:
         delete[] table;
     }
 
-    // Insert a string into the hash table using linear probing for collisions
-    void insertLinearProbing(const string& s) {
-        int index = hashFunction(s) % size;
-        while (!table[index].empty()) {
-            index = (index + 1) % size;
-        }
-        table[index] = s;
-    }
-
     // Insert a string into the hash table using quadratic probing for collisions
     void insertQuadraticProbing(const string& s) {
         int index = hashFunction(s) % size;
@@ -75,7 +66,7 @@ int main() {
         }
         string word = paragraph.substr(start, end - start);
         
-        //hashTable.insertLinearProbing(word); // Use linear probing
+
         hashTable.insertQuadraticProbing(word); // Use quadratic probing
         start = end + 1;
     }
@@ -85,7 +76,7 @@ int main() {
     // hashTable.printTable();
 
     auto duration = chrono::steady_clock::now() - old;
-    std::cout << "Execution time: " << chrono::duration_cast<chrono::milliseconds>(duration).count() << " millisec" << endl;
+    std::cout << "Execution time: " << chrono::duration_cast<chrono::microseconds>(duration).count() << " microsec" << endl;
 
     return 0;
 }
