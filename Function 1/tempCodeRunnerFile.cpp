@@ -1,1 +1,4 @@
-std::cout << "Execution time: " << std::chrono::duration_cast<std::chrono::microseconds>(duration).count() << " microsec" << std::endl;
+int hash_function_2(const string& str) {
+    // A simple hash function that returns the length of the string
+    return str.length();
+}
