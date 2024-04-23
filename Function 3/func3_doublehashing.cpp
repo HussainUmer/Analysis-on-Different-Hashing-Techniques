@@ -46,7 +46,7 @@ public:
             index = (index + step) % size;
             // If we've traversed the whole table without finding an empty slot, break to prevent infinite loop
             if (index == originalIndex) {
-                cout << "Table is full, cannot insert: " << s << endl;
+                
                 return;
             }
         }
