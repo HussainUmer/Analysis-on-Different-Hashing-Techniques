@@ -12,7 +12,16 @@ int hashFunction(const string& s) {
     return index;
 }
 
-// Hash Table with Linear Probing
+// Secondary hash function for double hashing
+int secondaryHashFunction(const string& s) {
+    int index = 0;
+    for (char c : s) {
+        index += c;
+    }
+    return index;
+}
+
+// Hash Table with Double Hashing
 class HashTable {
 private:
     int size;
@@ -27,22 +36,13 @@ public:
         delete[] table;
     }
 
-    // Insert a string into the hash table using linear probing for collisions
-    void insertLinearProbing(const string& s) {
+    // Insert a string into the hash table using double hashing for collisions
+    void insertDoubleHashing(const string& s) {
         int index = hashFunction(s) % size;
-        while (!table[index].empty()) {
-            index = (index + 1) % size;
-        }
-        table[index] = s;
-    }
+        int step = secondaryHashFunction(s) % (size - 1) + 1; // Ensure step is non-zero and less than table size
 
-    // Insert a string into the hash table using quadratic probing for collisions
-    void insertQuadraticProbing(const string& s) {
-        int index = hashFunction(s) % size;
-        int i = 1;
         while (!table[index].empty()) {
-            index = (index + i * i) % size; // Quadratic probing
-            ++i;
+            index = (index + step) % size;
         }
         table[index] = s;
     }
@@ -66,7 +66,7 @@ int main() {
     // Create hash table
     HashTable hashTable(tableSize);
 
-    // Insert words from the paragraph into the hash table using linear probing
+    // Insert words from the paragraph into the hash table using double hashing
     int start = 0;
     while (start < paragraph.size()) {
         int end = paragraph.find(' ', start);
@@ -75,8 +75,7 @@ int main() {
         }
         string word = paragraph.substr(start, end - start);
         
-        hashTable.insertLinearProbing(word); // Use linear probing
-        
+        hashTable.insertDoubleHashing(word); // Use double hashing
         start = end + 1;
     }
 

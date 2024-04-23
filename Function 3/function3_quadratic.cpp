@@ -75,8 +75,8 @@ int main() {
         }
         string word = paragraph.substr(start, end - start);
         
-        hashTable.insertLinearProbing(word); // Use linear probing
-        
+        //hashTable.insertLinearProbing(word); // Use linear probing
+        hashTable.insertQuadraticProbing(word); // Use quadratic probing
         start = end + 1;
     }
 
