@@ -27,38 +27,15 @@ public:
         delete[] hash_table;
     }
 
-    int hash_function(const string& key) {
-        return hash_function_1(key) % size;
-    }
-
-
     void insertQuadraticProbing(const string& key) {
-        // int index = hash_function(key); // Initial index
-        // int attempt = 1;
-        // while (!hash_table[index].empty()) {
-        //     // Quadratic probing: index = (hash_function(key) + i^2) % size
-        //     index = (index + attempt * attempt) % size;
-        //     attempt++;
-        // }
-        // hash_table[index] = key;
-        int index = hash_function(key);
-        if (hash_table[index].empty()) {
-            hash_table[index] = key;
-        } else {
-            // Quadratic probing
-            int i = 1;
-            int offset = 1;
-            int hashed_index;
-            while (true) {
-                hashed_index = (index + i * offset) % size;
-                if (hash_table[hashed_index].empty()) {
-                    hash_table[hashed_index] = key;
-                    break;
-                }
-                i++;
-                offset = pow(i, 2); // Using successive squares for quadratic probing
-            }
+        int index = hash_function_1(key) % size; // Initial index
+        int attempt = 1;
+        while (!hash_table[index].empty()) {
+            // Quadratic probing: index = (hash_function(key) + i^2) % size
+            index = (index + attempt * attempt) % size;
+            attempt++;
         }
+        hash_table[index] = key;
     }
 
     void print() {

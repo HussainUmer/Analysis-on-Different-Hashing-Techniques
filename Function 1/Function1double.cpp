@@ -38,7 +38,7 @@ public:
 
     void insertDoubleHashing(const string& key) {
         int index = hash_function(key); // Initial index
-        int offset = hash_function_2(key); // Calculate the offset using the second hash function
+        int offset = hash_function_2(key) % size;// Calculate the offset using the second hash function
         int attempt = 0;
         while (!hash_table[(index + attempt * offset) % size].empty()) {
             // Double hashing: index = (hash_function(key) + attempt * hash_function_2(key)) % size
